@@ -15,17 +15,23 @@ CREATE TABLE `user_t` (
   `newDate` datetime NOT NULL,
   `deleteFlg` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`userID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE buy_t (
-    buyID int NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    userID int NOT NULL,
-    itemCode varchar(255) NOT NULL,
-    type int NOT NULL,
-    buyDate datetime NOT NULL,
-    FOREIGN KEY(userID) REFERENCES user_t(userID)
-);
+DROP TABLE IF EXISTS `buy_t`;
+CREATE TABLE `buy_t` (
+  `buyID` int(11) NOT NULL AUTO_INCREMENT,
+  `userID` int(11) NOT NULL,
+  `itemCode` varchar(255) NOT NULL,
+  `type` int(11) NOT NULL,
+  `buyDate` datetime NOT NULL,
+  PRIMARY KEY (`buyID`),
+  KEY `userID` (`userID`),
+  CONSTRAINT `buy_t_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `user_t` (`userID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- mysql -u root < パス\kagoyume_db.sql
+-- mysqldump -u root データベース > 名前.sql
+-- 
 -- Statements actually I used: 
 -- CREATE TABLE user_t (
 --     userID int NOT NULL PRIMARY KEY AUTO_INCREMENT,
